@@ -24,5 +24,21 @@ class Task extends Model
     protected $casts = [
         'completed' => 'boolean',
     ];
+
+    /*
+    * returns the project associated with the task
+    */
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    /*
+    * returns the user associated with the task
+    */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     
 }

@@ -20,7 +20,6 @@ class ProjectFactory extends Factory
         return [
             'name' => fake()->name(),
             'description' => fake()->paragraph(),
-            'user_id' => fake()->numberBetween(1, 10),
             'admin_id' => fake()->numberBetween(1, 10),
             'completed' => fake()->boolean(),
         ];

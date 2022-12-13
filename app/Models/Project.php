@@ -17,8 +17,7 @@ class Project extends Model
         'name',
         'description',
         'admin_id',
-        'user_id',
-        'completed',
+        'completed'
     ];
 
     /*
@@ -34,6 +33,14 @@ class Project extends Model
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+
+    /*
+    * the admin created the project
+    */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'admin_id');
     }
 
 }
