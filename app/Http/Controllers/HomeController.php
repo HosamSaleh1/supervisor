@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -24,13 +25,24 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $tasks = Task::select('id','name','description')->where('user_id', auth()->user()->id)->where('completed', 0)->get();
+        // $tasks = Task::where('user_id', auth()->user()->id)->where('completed', 0)->get();
+            $tasks = DB::select("SELECT
+            `id` AS ID,
+            `name` AS Name,
+            `description` AS Description
+        FROM
+            `tasks`
+        WHERE
+            user_id = " . auth()->user()->id . " AND completed = 0");
         return view('home', ['tasks' => $tasks]);
     }
 
-    public function submit($id)
+    public function submit(Request $request, $id)
     {
-        $task = Task::where('id',$id)->update(['completed' => 1]);
+        $task = Task::where('id',$id)->update([
+            'completed' => 1,
+            'description' => $request->description
+        ]);
         return back()->with('success', 'Task completed successfully');
     }
 }

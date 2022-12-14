@@ -22,13 +22,21 @@
 </div>
 
 <div class="card mt-2 container">
-    @if($tasks->count() > 0)
+    @if($tasks)
         <div class="table-responsive text-nowrap p-5">
         <table class="table table-hover text-center">
             <thead>
                 @foreach ($tasks as $task)
                     @foreach ($task as $key => $val )
-                        <th>{{ $key }}</th>
+                        {{-- @if ($key == 'id')
+                            <th> ID </th>
+                        @elseif ($key == 'name')
+                            <th> Name </th>
+                        @elseif ($key == 'description')
+                            <th> Description </th>
+                        @endif
+                        @continue --}}
+                        <th> {{ $key }} </th>
                     @endforeach
                     @break
                 @endforeach
@@ -38,18 +46,22 @@
                 <tr>
                     @foreach ($task as $key => $val)
                         <td>
-                            @if ($key == 'name')
+                            @if ($key == 'ID')
                                 {{ $val }}
-                            @else
-                                <input type='text' name="description" value="{{ $val }}">
+                            @elseif ($key == 'Name')
+                                {{ $val }}
+                            @elseif ($key == 'Description')
+                                <input type='text' name="description" id="description1" value="{{ $val }}">
                             @endif
+                            @continue
                         </td>
                     @endforeach
                         <td>
                             <div class="">
-                                <form action="{{route('submit',$task->id)}}" method="POST" class="col-4 d-inline" id="updateForm">
+                                <form action="{{route('submit',$task->ID)}}" method="POST" class="col-4 d-inline" id="updateForm">
                                 @csrf
-                                    <button type="submit" class="">Submit</button>
+                                    <input type="hidden" name="description" value="" id="description2">
+                                    <button type="submit" class="btn btn-success" onclick="updateDescription()">Submit</button>
                                 </form>
                             </div>
                         </td>
@@ -66,3 +78,10 @@
     @endif
   
 @endsection
+
+<script>
+    function updateDescription(id) {
+        var description = document.getElementById('description1').value;
+        document.getElementById('description2').value = description;
+    }
+</script>

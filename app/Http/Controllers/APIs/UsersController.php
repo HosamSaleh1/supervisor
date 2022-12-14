@@ -15,17 +15,17 @@ class UsersController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email'=>['required','exist:users,email'],
-            'password'=>['required','string','min:6'],
+            'email'=>['required','exists:users,email'],
+            'password'=>['required','min:6'],
         ]);
-        $user = User::where('email',$request->all()['email'])->first();
+        $user = User::where('email',$request->email)->first();
         if($user){
-            if(Hash::check($request->all()['password'],$user->password)){
+            if(Hash::check($request->password,$user->password)){
                 $user->token = 'Bearer ' . $user->createToken($user->name)->plainTextToken;
-                return response()->json('تم تسجيل الدخول بنجاح',$user);
+                return response()->json(['msg' => 'تم تسجيل الدخول بنجاح', 'data' => $user, 'success' => true]);
             }
         }
-        return  response()->json('برجاء التأكد من البيانات',401);
+        return  response()->json(['msg' => 'برجاء التأكد من البيانات', 'data' => [], 'success' => false], 401);
     }
 
     public function register(Request $request)
@@ -39,7 +39,7 @@ class UsersController extends Controller
         $data['password'] = Hash::make($request->all()['password']);
         $user = User::create($data);
         $user->token = 'Bearer ' . $user->createToken($user->name)->plainTextToken;
-        return response()->json('تم تسجيل الحساب بنجاح',$user);
+        return response()->json(['msg' => 'تم تسجيل الحساب بنجاح', 'data' => $user, 'success' => true]);
     }
 
     public function edit()
@@ -47,9 +47,9 @@ class UsersController extends Controller
         $authUser = Auth::guard('sanctum')->user();
         $user = User::find($authUser->id);
         if(empty($user)){
-            return response()->json('حدث خطأ .. برجاء اعادة المحاوله!',404);
+            return  response()->json(['msg' => 'حدث خطأ .. برجاء اعادة المحاوله', 'data' => [], 'success' => false], 404);
         }
-        return $this->apiRes('تم استرداد البيانات',$user); 
+        return response()->json(['msg' => 'تم استرداد البيانات', 'data' => $user, 'success' => true]);
     }
 
     public function update(Request $request)
@@ -61,12 +61,12 @@ class UsersController extends Controller
         $authUser = Auth::guard('sanctum')->user();
         $user = User::find($authUser->id);
         if(empty($user)){
-            return response()->json('لا يوجد مستخدم بهذا الرقم!',404);
+            return  response()->json(['msg' => 'لا يوجد مستخدم بهذا الرقم', 'data' => [], 'success' => false], 404);
         }
         $data = $request->except('_token','_method');
         $user = User::where('id',$authUser->id)->update($data);
         $user = User::find($authUser->id);
-        return response()->json('تم تحديث البيانات بنجاح!',$user);
+        return response()->json(['msg' => 'تم تحديث البيانات بنجاح', 'data' => $user, 'success' => true]);
     }
 
     public function delete()
@@ -74,10 +74,10 @@ class UsersController extends Controller
         $authUser = Auth::guard('sanctum')->user();
         $user = User::find($authUser->id);
         if(empty($user)){
-            return response()->json('لا يوجد مستخدم بهذا الرقم!',404);
+            return  response()->json(['msg' => 'لا يوجد مستخدم بهذا الرقم', 'data' => [], 'success' => false], 404);
         }
         User::where('id',$authUser->id)->delete();
-        return response()->json('تم حذف الحساب بنجاح!',$user);
+        return response()->json(['msg' => 'تم حذف الحساب بنجاح', 'data' => $user, 'success' => true]);
     }
 
     public function changePassword(Request $request)
@@ -89,7 +89,7 @@ class UsersController extends Controller
         ]);
         $user->password = Hash::make($request->all()['password']);
         $user->save();
-        return response()->json('تم تغيير كلمة المرور بنجاح!',$user);
+        return response()->json(['msg' => 'تم تغيير كلمة المرور بنجاح', 'data' => $user, 'success' => true]);
     }
 
     public function forgetPassword(Request $request)
@@ -99,7 +99,7 @@ class UsersController extends Controller
         ]);
         $user = User::where('email',$request->all()['email'])->first();
         $token = $user->createToken($user->name)->plainTextToken;
-        return response()->json('تمت العمليه بنجاح!',$token);
+        return response()->json(['msg' => 'تمت العمليه بنجاح', 'data' => $token, 'success' => true]);
     }
 
     public function logoutFromAllDevices()
@@ -107,7 +107,7 @@ class UsersController extends Controller
         $authUser = Auth::guard('sanctum')->user();
         $user = User::find($authUser->id);
         $user->tokens()->delete();
-        return response()->json('تم تسجيل الخروج من كافة الاجهزه!',$user);
+        return response()->json(['msg' => 'تم تسجيل الخروج من كافة الاجهزه', 'data' => $user, 'success' => true]);
     }
 
     public function logout(Request $request)
@@ -118,7 +118,7 @@ class UsersController extends Controller
         $tokenArray = explode('|',$token);
         $tokenId = str_replace('Bearer ','',$tokenArray[0]);
         $user->tokens()->where('id',$tokenId)->delete();
-        return response()->json('تم تسجيل الخروج بنجاح!',[$user,$tokenId]);
+        return response()->json(['msg' => 'تم تسجيل الخروج بنجاح', 'data' => [$user,$tokenId], 'success' => true]);
     }
 
 }
