@@ -2,7 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+// use Illuminate\Foundation\Http\FormRequest;
+use Orion\Http\Requests\Request as FormRequest;
 
 class ProjectRequest extends FormRequest
 {
@@ -14,8 +15,7 @@ class ProjectRequest extends FormRequest
     public function authorize()
     {
         // only allow updates if the user is logged in
-        // return backpack_auth()->check();
-        return true;
+        return backpack_auth()->check();
     }
 
     /**

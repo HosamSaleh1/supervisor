@@ -6,9 +6,11 @@ namespace App\Http\Controllers\APIs;
 // use Illuminate\Http\Request;
 use Orion\Http\Controllers\Controller;
 use App\Models\Project;
+use Orion\Concerns\DisableAuthorization;
 
 class ProjectsController extends Controller
 {
+    use DisableAuthorization;
     /**
      * Fully-qualified model class name
      */

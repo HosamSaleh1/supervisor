@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\APIs\ProjectsController;
 use App\Http\Controllers\APIs\TasksController;
+use App\Http\Controllers\APIs\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\APIs\UsersController;
 use Orion\Facades\Orion;
 
 /*
