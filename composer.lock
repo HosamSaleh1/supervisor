@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1dc5a44c65eaaede0a58eaaccd84fb26",
+    "content-hash": "4daab6c0712ad6023cca987f54d51af9",
     "packages": [
         {
             "name": "backpack/crud",

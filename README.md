@@ -86,7 +86,7 @@ Copy the content from the /.env.example file and paste it in a newly created /.e
 
 ## Step Four - Install Composer Packages
 
-# SHH access to your server is required for the next steps. Please login to your server using your CLI (Windows: Power Shell / PuTTY, macOS: Terminal) and run following command in the GamePort root folder:
+# SHH access to your server is required for the next steps. Please login to your server using your CLI (Windows: Power Shell / PuTTY, macOS: Terminal) and run following command in the SupervisorApp root folder:
 
     composer install
 
@@ -134,11 +134,21 @@ Copy the content from the /.env.example file and paste it in a newly created /.e
 
 ## Please update the profile (email and password) after the first login.
 
+## If you want to use Docker.
+# the docker file already exists, so you just need to have docker running on your system and then use this command:
+
+    sail up
+
+## For Testing you can use this command
+
+    php artisan test
 
 
-    Installation complete!
+# Installation complete!
 
-    Congratulations! Your GamePort Application has been successfully installed!
+    Congratulations! Your SupervisorApp Application has been successfully installed!
+
+
 
 ## About Laravel
 
