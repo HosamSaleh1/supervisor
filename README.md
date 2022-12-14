@@ -7,6 +7,139 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+
+## Requirements
+
+# Before we start, make sure your server meets the following requirements:
+- Server Requirements.
+
+<ul>
+<li>PHP >= 8.2</li>
+<li>Composer Dependency Manager</li>
+<li>Shell (SSH) Access</li>
+<li>OpenSSL PHP Extension</li>
+<li>PDO PHP Extension</li>
+<li>Mbstring PHP Extension</li>
+<li>Tokenizer PHP Extension</li>
+<li>XML PHP Extension</li>
+<li>Ctype PHP Extension</li>
+<li>JSON PHP Extension</li>
+</ul>
+
+## Installation
+
+# The installation process works the same as all Laravel applications. You can follow this installation guide for a quick start and also check the Laravel Documentation.
+
+## Step One - Download Files
+
+Download all files from the Repo (https://github.com/HosamSaleh1/supervisor.git). Then you have to configure your web server's document / web root to the /public/ directory. The index.php in this directory serves as the front controller for all HTTP requests entering the application. Wrong: http://www.yoursite.com/public Right: http://www.yoursite.com/
+
+
+
+## Step Two - Set Permissions
+
+# Set the following folder permissions (including all sub folders) (chmod):
+
+    0755 /storage/*
+    0755 /bootstrap/cache/*
+
+
+## Step Three - Create .env file
+
+Copy the content from the /.env.example file and paste it in a newly created /.env file. Update the /.env file with your configuration. The most important parts are the base configuration:
+
+    APP_NAME=Laravel
+    APP_ENV=local
+    APP_KEY=
+    APP_DEBUG=true
+    APP_URL=http://localhost
+    FORCE_HTTPS=false
+
+# Please leave the APP_KEY= value empty, as the key will be generated in step five. If you are using SSL / HTTPS, set FORCE_HTTPS= to true. In production you should set the APP_ENV= value to production and APP_DEBUG= to false
+
+
+## the database configuration:
+
+    DB_CONNECTION=mysql
+    DB_HOST=mysql
+    DB_PORT=3306
+    DB_DATABASE=laravel
+    DB_USERNAME=root
+    DB_PASSWORD=password
+
+
+# and the SMTP / mail configuration:
+
+    MAIL_MAILER=smtp
+    MAIL_HOST=mailhog
+    MAIL_PORT=1025
+    MAIL_USERNAME=null
+    MAIL_PASSWORD=null
+    MAIL_ENCRYPTION=null
+    MAIL_FROM_ADDRESS="hello@example.com"
+    MAIL_FROM_NAME="${APP_NAME}"
+
+
+## Double-check the configuration to avoid errors in the following steps.
+
+
+
+## Step Four - Install Composer Packages
+
+# SHH access to your server is required for the next steps. Please login to your server using your CLI (Windows: Power Shell / PuTTY, macOS: Terminal) and run following command in the GamePort root folder:
+
+    composer install
+
+
+# This command will install all packages required to run SupervisorApp.
+
+
+
+## Step Five - Generate Application Key
+
+# After installing the composer packages, you need to run the following command in the CLI to generate a random application key:
+
+    php artisan key:generate
+
+
+# This command will add a random application key to your .env file, which is required for security features and should not be changed afterwards.
+
+
+
+## Step Six - Migrate Database
+
+# After installation the composer packages, you need to run the following command in the CLI to migrate the database:
+
+    php artisan migrate
+
+
+
+## Step Seven - Seed Database
+
+# To seed the database with initial data like platforms and the admin user, you need to run following command in the CLI:
+
+    php artisan db:seed
+
+
+# The credentials for the default admin user are:
+
+    Email: admin@admin.com
+    Password: password
+
+
+# The credentials for the default employee user are:
+
+    Email: user@user.com
+    Password: password
+
+## Please update the profile (email and password) after the first login.
+
+
+
+    Installation complete!
+
+    Congratulations! Your GamePort Application has been successfully installed!
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
