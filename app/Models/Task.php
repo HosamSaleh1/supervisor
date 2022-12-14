@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
 
     protected $fillable = [
