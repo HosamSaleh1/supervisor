@@ -49,7 +49,6 @@
                             <div class="">
                                 <form action="{{route('submit',$task->id)}}" method="POST" class="col-4 d-inline" id="updateForm">
                                 @csrf
-                                @method('PUT')
                                     <button type="submit" class="">Submit</button>
                                 </form>
                             </div>

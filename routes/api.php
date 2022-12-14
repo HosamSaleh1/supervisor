@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\APIs\ProjectsController;
+use App\Http\Controllers\APIs\TasksController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\APIs\UsersController;
+use Orion\Facades\Orion;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +39,6 @@ Route::Group(['prefix'=>'users'],function(){
         Route::get('logout',[UsersController::class,'logout']);
     });
 });
+
+Orion::resource('projects', ProjectsController::class);
+Orion::resource('tasks', TasksController::class);
