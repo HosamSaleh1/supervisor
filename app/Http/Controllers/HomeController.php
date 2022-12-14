@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $tasks = Task::where('user_id', auth()->user()->id)->get();
+        return view('home', ['tasks' => $tasks]);
+    }
+
+    public function submit($id)
+    {
+        $task = Task::where('id',$id)->update(['completed' => 1]);
+        return back()->with('success', 'Task completed successfully');
     }
 }

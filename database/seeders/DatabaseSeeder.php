@@ -23,6 +23,13 @@ class DatabaseSeeder extends Seeder
             'is_admin' => 1,
             'remember_token' => Str::random(10)
         ]);
+        \App\Models\User::create([
+            'name' => 'User',
+            'email' => 'user@user.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
+            'remember_token' => Str::random(10)
+        ]);
         \App\Models\User::factory(10)->create();
         \App\Models\Project::factory(10)->create();
         \App\Models\Task::factory(10)->create();
